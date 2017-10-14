@@ -4,22 +4,28 @@ window.onload = () => {
     width = canvas.width = canvas.offsetWidth;
     height = canvas.height = canvas.offsetHeight;
     colorDiff = 50;
+    bFrom = 1;
+    bTo = 3;
     drawTree();
 }
 drawTree = () => {
     clearCanvas();
     let startLength = height / 3.2;
     let up = -Math.PI / 2;
-    let levels = 9;
+    let levels = document.getElementById('levels').value;
+    if (!levels) levels = 9;
     let startInterval = 100;
     let startWitdh = 12;
 
     let startColor = { red: 5 * 16, blue: 0, green: 3 * 16 + 8 };
     let color = document.getElementById('startColor').value;
     let diff = document.getElementById('colorDiff').value;
+    let from = document.getElementById('numberOfBranchesFrom').value;
+    let to = document.getElementById('numberOfBranchesTo').value;
+    if (from) bFrom = from << 0;
+    if (to) bTo = to << 0;
     if (diff) colorDiff = diff;
     if (color) {
-
         branch(width / 2, height, startLength, up, levels, startInterval, stringToColor(color), startWitdh);
     }else 
         branch(width / 2, height, startLength, up, levels, startInterval, startColor, startWitdh);
@@ -45,7 +51,7 @@ branch = (startX, startY, length, angle, level, interval, color, lineWidth) => {
     };
     let lineDiff = 0.65;
     setTimeout(() => {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i <= Math.round(bFrom+(bTo-bFrom)*Math.random()); i++) {
             branch(end.x, end.y, length * lengthDiff, angle + angleDiff(), level - 1, newInterval, newColor, lineWidth * lineDiff);
         }
     }, interval);
