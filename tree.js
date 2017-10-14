@@ -51,7 +51,7 @@ branch = (startX, startY, length, angle, level, interval, color, lineWidth) => {
     };
     let lineDiff = 0.65;
     setTimeout(() => {
-        for (let i = 0; i <= Math.round(bFrom+(bTo-bFrom)*Math.random()); i++) {
+        for (let i = 0; i < Math.round(bFrom+(bTo-bFrom)*Math.random()); i++) {
             branch(end.x, end.y, length * lengthDiff, angle + angleDiff(), level - 1, newInterval, newColor, lineWidth * lineDiff);
         }
     }, interval);
